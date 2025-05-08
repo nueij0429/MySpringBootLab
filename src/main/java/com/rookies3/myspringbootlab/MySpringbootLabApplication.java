@@ -10,7 +10,7 @@ public class MySpringbootLabApplication {
 
 	public static void main(String[] args) {
 		SpringApplication application = new SpringApplication(MySpringbootLabApplication.class);
-		application.setWebApplicationType(WebApplicationType.NONE);
+		application.setWebApplicationType(WebApplicationType.SERVLET);
 		application.run(args);
 	}
 

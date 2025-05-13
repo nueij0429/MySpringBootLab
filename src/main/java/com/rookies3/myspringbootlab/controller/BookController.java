@@ -34,14 +34,14 @@ public class BookController {
     }
 
     // 저자로 도서 조회
-    @GetMapping("/search/author/{author}")
-    public ResponseEntity<List<BookDTO.Response>> getBooksByAuthor(@PathVariable String author) {
+    @GetMapping("/search/author")
+    public ResponseEntity<List<BookDTO.Response>> getBooksByAuthor(@RequestParam String author) {
         return ResponseEntity.ok(bookService.getBooksByAuthor(author));
     }
 
     // 제목으로 도서 조회
-    @GetMapping("/search/title/{title}")
-    public ResponseEntity<List<BookDTO.Response>> getBooksByTitle(@PathVariable String title) {
+    @GetMapping("/search/title")
+    public ResponseEntity<List<BookDTO.Response>> getBooksByTitle(@RequestParam String title) {
         return ResponseEntity.ok(bookService.getBooksByTitle(title));
     }
 

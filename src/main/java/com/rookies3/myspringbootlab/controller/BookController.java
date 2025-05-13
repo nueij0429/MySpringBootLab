@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,14 +21,6 @@ public class BookController {
         return ResponseEntity.ok(bookService.getAllBooks());
     }
 
-    // 도서 등록
-    @PostMapping
-    public ResponseEntity<BookDTO.Response> createBook(
-            @Valid @RequestBody BookDTO.Request request) {
-        BookDTO.Response response = bookService.createBook(request);
-        return ResponseEntity.ok(response);
-    }
-
     // ID로 도서 조회
     @GetMapping("/{id}")
     public ResponseEntity<BookDTO.Response> getBookById(@PathVariable Long id) {
@@ -40,6 +31,26 @@ public class BookController {
     @GetMapping("/isbn/{isbn}")
     public ResponseEntity<BookDTO.Response> getBookByIsbn(@PathVariable String isbn) {
         return ResponseEntity.ok(bookService.getBookByIsbn(isbn));
+    }
+
+    // 저자로 도서 조회
+    @GetMapping("/search/author/{author}")
+    public ResponseEntity<List<BookDTO.Response>> getBooksByAuthor(@PathVariable String author) {
+        return ResponseEntity.ok(bookService.getBooksByAuthor(author));
+    }
+
+    // 제목으로 도서 조회
+    @GetMapping("/search/title/{title}")
+    public ResponseEntity<List<BookDTO.Response>> getBooksByTitle(@PathVariable String title) {
+        return ResponseEntity.ok(bookService.getBooksByTitle(title));
+    }
+
+    // 도서 등록
+    @PostMapping
+    public ResponseEntity<BookDTO.Response> createBook(
+            @Valid @RequestBody BookDTO.Request request) {
+        BookDTO.Response response = bookService.createBook(request);
+        return ResponseEntity.ok(response);
     }
 
     // 도서 정보 수정

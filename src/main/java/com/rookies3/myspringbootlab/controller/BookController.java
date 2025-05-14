@@ -53,12 +53,12 @@ public class BookController {
         return ResponseEntity.ok(response);
     }
 
-    // 도서 정보 수정
-    @PatchMapping("/{id}")
-    public ResponseEntity<BookDTO.Response> updateBook(@PathVariable Long id,
-                                                           @Valid @RequestBody BookDTO.Request request) {
-        return ResponseEntity.ok(bookService.updateBook(id, request));
-    }
+//    // 도서 정보 수정
+//    @PatchMapping("/{id}")
+//    public ResponseEntity<BookDTO.Response> updateBook(@PathVariable Long id,
+//                                                           @Valid @RequestBody BookDTO.Request request) {
+//        return ResponseEntity.ok(bookService.updateBook(id, request));
+//    }
 
     // 도서 일부 필드만 수정
     @PatchMapping("/{id}")

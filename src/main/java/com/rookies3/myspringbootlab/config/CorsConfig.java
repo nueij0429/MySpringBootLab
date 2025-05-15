@@ -32,4 +32,5 @@ public class CorsConfig {
         bean.setOrder(0);
         return bean;
     }
+
 }

@@ -17,5 +17,6 @@ public interface BookDetailRepository extends JpaRepository<BookDetail, Long> {
     @Query("SELECT bd FROM BookDetail bd JOIN FETCH bd.book WHERE bd.id = :id")
     Optional<BookDetail> findByIdWithBook(@Param("id") Long id);
 
-    List<BookDetail> findByPublisher(String publisher);
+    @Query("SELECT bd FROM BookDetail bd WHERE bd.publisher = :publisher")
+    List<BookDetail> findByPublisher(@Param("publisher") String publisher);
 }

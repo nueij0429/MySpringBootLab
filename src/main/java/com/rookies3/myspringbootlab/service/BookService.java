@@ -56,6 +56,12 @@ public class BookService {
                 .map(BookDTO.Response::fromEntity)
                 .toList();
     }
+    public List<BookDTO.Response> getBooksByPublisherId(Long publisherId) {
+        List<Book> books = bookRepository.findByPublisherId(publisherId);
+        return books.stream()
+                .map(BookDTO.Response::fromEntity)
+                .toList();
+    }
 
     @Transactional
     public BookDTO.Response createBook(BookDTO.Request request) {
@@ -74,14 +80,14 @@ public class BookService {
                 .build();
 
         // Create book detail if provided
-        if (request.getDetail() != null) {
+        if (request.getDetailRequest() != null) {
             BookDetail bookDetail = BookDetail.builder()
-                    .description(request.getDetail().getDescription())
-                    .language(request.getDetail().getLanguage())
-                    .pageCount(request.getDetail().getPageCount())
-                    .publisher(request.getDetail().getPublisher())
-                    .coverImageUrl(request.getDetail().getCoverImageUrl())
-                    .edition(request.getDetail().getEdition())
+                    .description(request.getDetailRequest().getDescription())
+                    .language(request.getDetailRequest().getLanguage())
+                    .pageCount(request.getDetailRequest().getPageCount())
+                    .publisher(request.getDetailRequest().getPublisher())
+                    .coverImageUrl(request.getDetailRequest().getCoverImageUrl())
+                    .edition(request.getDetailRequest().getEdition())
                     //연관관계 저장
                     .book(book)
                     .build();
@@ -114,7 +120,7 @@ public class BookService {
         book.setPublishDate(request.getPublishDate());
 
         // Update book detail if provided
-        if (request.getDetail() != null) {
+        if (request.getDetailRequest() != null) {
             BookDetail bookDetail = book.getBookDetail();
 
             // Create new detail if not exists
@@ -125,12 +131,12 @@ public class BookService {
             }
 
             // Update detail fields
-            bookDetail.setDescription(request.getDetail().getDescription());
-            bookDetail.setLanguage(request.getDetail().getLanguage());
-            bookDetail.setPageCount(request.getDetail().getPageCount());
-            bookDetail.setPublisher(request.getDetail().getPublisher());
-            bookDetail.setCoverImageUrl(request.getDetail().getCoverImageUrl());
-            bookDetail.setEdition(request.getDetail().getEdition());
+            bookDetail.setDescription(request.getDetailRequest().getDescription());
+            bookDetail.setLanguage(request.getDetailRequest().getLanguage());
+            bookDetail.setPageCount(request.getDetailRequest().getPageCount());
+            bookDetail.setPublisher(request.getDetailRequest().getPublisher());
+            bookDetail.setCoverImageUrl(request.getDetailRequest().getCoverImageUrl());
+            bookDetail.setEdition(request.getDetailRequest().getEdition());
         }
 
         // Save and return updated book

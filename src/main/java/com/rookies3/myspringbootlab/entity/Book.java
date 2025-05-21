@@ -2,7 +2,6 @@ package com.rookies3.myspringbootlab.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.DynamicUpdate;
 
 import java.time.LocalDate;
 
@@ -11,8 +10,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Getter
-@Setter
+@Getter @Setter
 public class Book {
 
     @Id
@@ -29,12 +27,16 @@ public class Book {
     @Column(unique = true, nullable = false)
     private String isbn;
 
+    @Column(nullable = false)
     private Integer price;
 
+    @Column(nullable = false)
     private LocalDate publishDate;
 
-    @OneToOne(mappedBy = "book",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY)
+    @OneToOne(fetch=FetchType.LAZY, mappedBy ="book", cascade = CascadeType.ALL)
     private BookDetail bookDetail;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "publisher_id")
+    private Publisher publisher;
 }
